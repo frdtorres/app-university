@@ -13,5 +13,14 @@ angular.module('mean.students').config(['$stateProvider',
             url: '/students/create',
             templateUrl: 'students/views/create.html'
         })
+      .state('all students', {
+            url: '/students',
+            templateUrl: 'students/views/list.html'            
+        })
+      .state('edit students',{
+            url: '/students/edit/:studentId',
+            templateUrl: 'students/views/edit.html'
+        })
+        ;
   }
 ]);

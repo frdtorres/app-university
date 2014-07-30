@@ -1,1 +1,76 @@
-list.html
+<section data-ng-controller="StudentController" ng-init="find()">
+	<h1>
+		Lista de Estudiantes
+		<div class="pull-rigth">
+			<a ui-sref="create student" class="btn btn-primary" >Registro de Estudiantes</a>
+		</div>
+	</h1>
+	<body ng-app>
+		
+		<hr>
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<div class="input-group">
+					<span class= "input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+					<input type="text"class="form-control" placeholder="Buscar Estudiante" ng-model="buscar.fatherName">
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table class="table" >
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>DNI</th>
+						<th>
+
+							Apellido Paterno
+							<a href="" ng-click="orderByValue('-fatherName')">
+								<i class="fa fa-caret-up"></i> 
+							</a>
+							<a href="" ng-click="orderByValue('fatherName')">
+								<i class="fa fa-caret-down"></i> 
+							</a>
+						</th>
+						<th>
+							<a href="" ng-click="orderByValue('motherName')">
+								Apellido Materno
+							</a>
+							
+						</th>
+						<th>
+							<a href="" ng-click="orderByValue('names')">
+								Nombres
+							</a>
+						</th>
+						<th>
+							<a href="" ng-click="orderByValue('-fatherName')">
+								<i class="fa fa-caret-down"></i>
+							</a>
+						</th>
+						<th>Acciones</th>
+					
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="student in students | orderBy:filterSelected |filter:buscar">
+						<td>{{$index+1}}</td>
+						<td>{{student.dni}}</td>
+						<td>{{student.fatherName | uppercase}}</td>  
+						<td>{{student.motherName}}</td>
+						<td>{{student.names}}</td>
+						<td>
+							<a href="/#!/students/edit/{{student._id}}" class="btn btn-success btn-xs" >
+								<i class="fa fa-pencil-square-o"></i> Editar
+							</a>
+					      	<button ng-click="remove(student._id)" class="btn btn-danger btn-xs" >
+					    	    <i class="fa fa-trash-o"></i> Delete
+					      	</button>
+						</td>	
+					</tr>
+
+				</tbody>
+			</table>
+		</div>
+	</body>
+</section>

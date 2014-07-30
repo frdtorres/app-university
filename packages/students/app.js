@@ -17,16 +17,16 @@ Students.register(function(app, auth, database) {
     Students.routes(app, auth, database);
 
     //We are adding a link to the main menu for all authenticated users
-    Students.menus.add({
+    /*]Students.menus.add({
         title: 'students example page',
         link: 'students example page',
         roles: ['authenticated'],
         menu: 'main'
-    });
+    });*/
 
     Students.menus.add({
-        title: 'Registrar estudiantes',
-        link: 'create student', // is the name of the state and this is define in public/routes
+        title: 'Estudiantes',
+        link: 'all students',
         roles: ['authenticated'],
         menu: 'main'
     });
