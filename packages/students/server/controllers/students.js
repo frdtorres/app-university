@@ -24,10 +24,11 @@ exports.student = function(req, res, next, id) {
  * Create an student
  */
 exports.create = function(req, res) {
-  var student = newStudent(req.body);
+  var student = new Student(req.body);
   student.user = req.user;
 
   student.save(function(err) {
+    debugger;
     if (err) {
       return res.json(500, {
         error: 'Cannot save the student'

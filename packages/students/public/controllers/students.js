@@ -1,10 +1,24 @@
 'use strict';
 
-angular.module('mean.students').controller('StudentsController', ['$scope', 'Global', 'Students',
-    function($scope, Global, Students) {
+angular.module('mean.students')
+    .controller('StudentController', [
+        '$scope', 
+        '$location',
+        '$state',
+        '$stateParams',
+        'Global', 
+        'Students',
+        'Restangular',
+    function($scope, $location,  $state, $stateParams, Global, Students, Restangular) {
+        
         $scope.global = Global;
-        $scope.package = {
-            name: 'students'
+        $scope.student = {};
+
+        $scope.create = function() {
+           Students.post($scope.student).then(function (student) {
+               $state.go('home');
+           })
         };
+
     }
 ]);

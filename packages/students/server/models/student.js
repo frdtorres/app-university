@@ -37,17 +37,14 @@ var StudentSchema = new Schema({
   },
   address: {
     type: String,
-    required: true,
     trim: true
   },
   telephone: {
     type: Number,
-    required: true,
     trim: true
   },
   photo: {
     type: String,
-    required: true,
     trim: true
   },
 
@@ -60,20 +57,16 @@ var StudentSchema = new Schema({
 /**
  * Validations
  */
-StudentSchema.path('dni').validate(function(dni) {
-  return !!dni;
-}, 'Este campo es obligatorio');
-
 StudentSchema.path('names').validate(function(names) {
-  return !!names;
+  return names.length;
 }, 'Este campo es obligatorio');
 
 StudentSchema.path('fatherName').validate(function(fatherName) {
-  return !!fatherName;
+  return fatherName.length;
 }, 'Este campo es obligatorio');
 
 StudentSchema.path('motherName').validate(function(motherName) {
-  return !!motherName;
+  return motherName.length;
 }, 'Este campo es obligatorio');
 
 /**

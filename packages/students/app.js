@@ -24,6 +24,13 @@ Students.register(function(app, auth, database) {
         menu: 'main'
     });
 
+    Students.menus.add({
+        title: 'Registrar estudiantes',
+        link: 'create student', // is the name of the state and this is define in public/routes
+        roles: ['authenticated'],
+        menu: 'main'
+    });
+
     /**
     //Uncomment to use. Requires meanio@0.3.7 or above
     // Save settings with callback

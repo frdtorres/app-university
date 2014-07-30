@@ -1,9 +1,8 @@
 'use strict';
 
-angular.module('mean.students').factory('Students', [
-    function() {
-        return {
-            name: 'students'
-        };
-    }
-]);
+//Agreements service used for articles REST endpoint
+angular.module('mean.students')
+  // Factory  Projects
+  .factory('Students', ['Restangular', function(Restangular) {
+    return Restangular.service('students');
+  }])
