@@ -1,0 +1,57 @@
+<section data-ng-controller="SchoolController"  ng-init="find()">
+	<h1>
+		Lista de Escuelas Profesionales
+		<div class="pull-rigth">
+			<a ui-sref="create school" class="btn btn-primary" >Registro de Escuelas Profesionales</a>
+		</div>
+	</h1>
+	<body ng-app>
+		
+		<hr>
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<div class="input-group">
+					<span class= "input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+					<input type="text"class="form-control" placeholder="Buscar Escuela Profesional" ng-model="buscar.name">
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>
+							Nombre de la Escuela Profesional
+							<a href="" ng-click="orderByValue('-name')">
+								<i class="fa fa-caret-up"></i> 
+							</a>
+
+							<a href="" ng-click="orderByValue('name')">
+								<i class="fa fa-caret-down"></i>
+							</a>
+						</th>
+						<th>Acciones</th>
+					
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="school in schools | orderBy:filterSelected |filter:buscar">
+						<td>{{$index+1}}</td>
+						<td>{{school.name | uppercase}} </td>  
+						<td>
+							<a href="/#!/schools/edit/{{school._id}}" class="btn btn-success btn-xs" >
+								<i class="fa fa-pencil-square-o"></i> Editar
+							</a>
+					      	<button ng-click="remove(school._id)" class="btn btn-danger btn-xs" >
+					    	    <i class="fa fa-trash-o"></i> Delete
+					      	</button>
+						</td>	
+					</tr>
+
+				</tbody>
+			</table>
+		</div>
+	</body>
+</section>
+

@@ -1,0 +1,18 @@
+<section data-ng-controller="SchoolController" ng-init="findOne()">
+    <form class="form-horizontal col-md-6" role="form" data-ng-submit="update()">
+
+        <div class="form-group">
+            <label mean-token="'create-names'" class="col-md-3 control-label">Nombre de la Escuela Profesional</label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" data-ng-model="school.name" id="name" placeholder="Nombre de la Escuela profesional" required>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-9">
+                <button type="submit" class="btn btn-info">Registrar</button>
+            </div>
+        </div>
+    </form>
+</section>
