@@ -22,7 +22,8 @@ var modules = [
   'ngResource',
   'ui.bootstrap',
   'ui.router',
-  'restangular'
+  'restangular',
+  'angularFileUpload'
   ];
 
 modules = modules.concat(packageModules);

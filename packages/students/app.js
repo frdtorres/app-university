@@ -26,7 +26,7 @@ Students.register(function(app, auth, database) {
 
     Students.menus.add({
         title: 'Estudiantes',
-        link: 'all students',
+        link: 'students',
         roles: ['authenticated'],
         menu: 'main'
     });

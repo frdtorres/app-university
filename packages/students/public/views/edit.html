@@ -51,6 +51,18 @@
                 <input type="photo" class="form-control" data-ng-model="student.photo" id="photo" placeholder="Fotografia" required>
             </div>
         </div>
+        <div class="form-group" >
+            <label mean-token="'create-schools'" class="col-md-3 control-label">Escuela Profesional</label>
+            <div class="col-md-9">
+                <select 
+                    ng-model="student.schools[0]" 
+                    ng-options="school._id as school.name for school in schools"
+                    id="schools" 
+                    placeholder="Escuela Profesional" required>
+                    
+                </select>
+            </div>
+        </div>
         
 
 

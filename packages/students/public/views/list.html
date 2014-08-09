@@ -33,20 +33,35 @@
 							</a>
 						</th>
 						<th>
+							Apellido Materno
+							<a href="" ng-click="orderByValue('-motherName')">
+								<i class="fa fa-caret-up"></i> 
+							</a>
 							<a href="" ng-click="orderByValue('motherName')">
-								Apellido Materno
+								<i class="fa fa-caret-down"></i> 
 							</a>
 							
 						</th>
 						<th>
+							Nombres
+							<a href="" ng-click="orderByValue('-names')">
+								<i class="fa fa-caret-up"></i> 
+							</a>
 							<a href="" ng-click="orderByValue('names')">
-								Nombres
+								<i class="fa fa-caret-down"></i> 
 							</a>
 						</th>
+						
 						<th>
-							<a href="" ng-click="orderByValue('-fatherName')">
+							Escuela Profesional
+							<a href="" ng-click="orderByValue('-schools[0].name')">
+								<i class="fa fa-caret-up"></i> 
 							</a>
-						</th>
+							<a href="" ng-click="orderByValue('schools[0].name')">
+								<i class="fa fa-caret-down"></i> 
+							</a>
+					</th>
+
 						<th>Acciones</th>
 					
 					</tr>
@@ -58,13 +73,17 @@
 						<td>{{student.fatherName | uppercase}}</td>  
 						<td>{{student.motherName}}</td>
 						<td>{{student.names}}</td>
+						<td>{{student.schools[0].name}}</td>
 						<td>
 							<a href="/#!/students/edit/{{student._id}}" class="btn btn-success btn-xs" >
 								<i class="fa fa-pencil-square-o"></i> Editar
 							</a>
-					      	<button ng-click="remove(student._id)" class="btn btn-danger btn-xs" >
-					    	    <i class="fa fa-trash-o"></i> Delete
-					      	</button>
+			      	<button ng-click="remove(student._id)" class="btn btn-danger btn-xs" >
+			    	    <i class="fa fa-trash-o"></i> Delete
+					    </button>
+					    <a href="/#!/students/view/{{student._id}}" class="btn btn-info btn-xs" >
+								<i class="fa fa-pencil-square-o"></i> Ver
+							</a>
 						</td>	
 					</tr>
 

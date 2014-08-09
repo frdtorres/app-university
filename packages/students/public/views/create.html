@@ -1,63 +1,140 @@
-<section data-ng-controller="StudentController">
-    <form class="form-horizontal col-md-6" role="form" data-ng-submit="create()">
 
-     <div class="form-group">
-            <label mean-token="'create-dni'" class="col-md-3 control-label">DNI</label>
-            <div class="col-md-9">
-                <input type="number" class="form-control" data-ng-model="student.dni" id="dni" placeholder="DNI" required>
-            </div>
-        </div>
-        
-        <div class="form-group">
-            <label mean-token="'create-names'" class="col-md-3 control-label">Nombres</label>
-            <div class="col-md-9">
-                <input type="text" class="form-control" data-ng-model="student.names" id="names" placeholder="Nombres" required>
-            </div>
-        </div>
+<div ng-controller="UploadControler" ng-init="getSchools()">
 
-          <div class="form-group">
-            <label mean-token="'create-fatherName'" class="col-md-3 control-label">Apellido Paterno</label>
-            <div class="col-md-9">
-                <input type="text" class="form-control" data-ng-model="student.fatherName" id="fatherName" placeholder="Apellido Paterno" required>
-            </div>
-        </div>
+  <form class="form-horizontal" role="form" ng-submit="create()">
+    <!-- column-6 -->
+    <div  class="col-md-6">
+      <div class="form-group">
+          <label mean-token="'create-dni'" class="col-md-3 control-label">DNI</label>
+          <div class="col-md-9">
+              <input type="number" class="form-control" data-ng-model="student.dni" id="dni" placeholder="DNI" required>
+          </div>
+      </div>
 
+      <div class="form-group">
+          <label mean-token="'create-names'" class="col-md-3 control-label">Nombres</label>
+          <div class="col-md-9">
+              <input type="text" class="form-control" data-ng-model="student.names" id="names" placeholder="Nombres" required>
+          </div>
+      </div>
 
         <div class="form-group">
-            <label mean-token="'create-motherName" class="col-md-3 control-label">Apellido Materno</label>
-            <div class="col-md-9">
-                <input type="text" class="form-control" data-ng-model="student.motherName" id="motherName" placeholder="Apellido Materno" required>
-            </div>
-        </div>
-
-         <div class="form-group">
-            <label mean-token="'create-address'" class="col-md-3 control-label">Dirección</label>
-            <div class="col-md-9">
-                <input type="text" class="form-control" data-ng-model="student.address" id="address" placeholder="Dirección" required>
-            </div>
-        </div>
-
-        
-         <div class="form-group">
-            <label mean-token="'create-telephone'" class="col-md-3 control-label">Teléfono</label>
-            <div class="col-md-9">
-                <input type="number" class="form-control" data-ng-model="student.telephone" id="telephone" placeholder="Teléfono" required>
-            </div>
-        </div>
-
-         <div class="form-group">
-            <label mean-token="'create-photo'" class="col-md-3 control-label">Fotografia</label>
-            <div class="col-md-9">
-                <input type="photo" class="form-control" data-ng-model="student.photo" id="photo" placeholder="Fotografia" required>
-            </div>
-        </div>
-        
+          <label mean-token="'create-fatherName'" class="col-md-3 control-label">Apellido Paterno</label>
+          <div class="col-md-9">
+              <input type="text" class="form-control" data-ng-model="student.fatherName" id="fatherName" placeholder="Apellido Paterno" required>
+          </div>
+      </div>
 
 
-        <div class="form-group">
-            <div class="col-md-offset-3 col-md-9">
-                <button type="submit" class="btn btn-info">Registrar</button>
-            </div>
+      <div class="form-group">
+          <label mean-token="'create-motherName" class="col-md-3 control-label">Apellido Materno</label>
+          <div class="col-md-9">
+              <input type="text" class="form-control" data-ng-model="student.motherName" id="motherName" placeholder="Apellido Materno" required>
+          </div>
+      </div>
+
+       <div class="form-group">
+          <label mean-token="'create-address'" class="col-md-3 control-label">Dirección</label>
+          <div class="col-md-9">
+              <input type="text" class="form-control" data-ng-model="student.address" id="address" placeholder="Dirección" required>
+          </div>
+      </div>
+
+
+       <div class="form-group">
+          <label mean-token="'create-telephone'" class="col-md-3 control-label">Teléfono</label>
+          <div class="col-md-9">
+              <input type="number" class="form-control" data-ng-model="student.telephone" id="telephone" placeholder="Teléfono" required>
+          </div>
+      </div>
+
+      <div class="form-group">
+        <label mean-token="'create-schools'" class="col-md-3 control-label">Escuela Profesional</label>
+        <div class="col-md-9">
+             <select
+                ng-model="student.schools"
+                ng-options="school._id as school.name for school in schools"
+                id="schools"
+                class="form-control"
+                placeholder="Escuela Profesional" required>
+
+            </select>
         </div>
-    </form>
-</section>
+      </div>
+    </div>
+    <!-- #column-6 -->
+
+    <!-- column-6 -->
+    <div  class="col-md-6">
+      <div class="form-group">
+        <label mean-token="'create-schools'" class="col-md-3 control-label">Escuela Profesional</label>
+        <div class="col-md-9">
+            <input
+              type="file"
+              class="form-control"
+              ng-file-select="onFileSelect($files)">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-3 control-label">Progress:</label>
+
+        <div class="col-md-9">
+          <div ng-show="selectedFiles != null">
+            <div class="sel-file" ng-repeat="f in selectedFiles">
+
+              <img style="width: 100%;"
+                ng-show="dataUrls[$index]"
+                ng-src="{{dataUrls[$index]}}">
+
+
+              <button class="button"
+                ng-click="start($index)"
+                ng-show="progress[$index] < 0">
+                Start
+              </button>
+
+              <span class="progress"
+                ng-show="progress[$index] >= 0">
+                <div style="width:{{progress[$index]}}%">{{progress[$index]}}%</div>
+              </span>
+
+              <button class="button"
+                ng-click="abort($index)"
+                ng-show="hasUploader($index) && progress[$index] < 100">
+                  Abort
+              </button>
+              {{f.name}} - size: {{f.size}}B - type: {{f.type}}
+            </div>
+          </div>
+
+          <!--
+          <div class="response" ng-show="uploadResult.length > 0">
+            Server Response:
+            <ul>
+                <li ng-repeat="result in uploadResult">
+                    <ul>
+                        <li ng-repeat="item in result">
+                            <div data-ng-show="item.name">file name: {{item.name}}</div>
+                            <div data-ng-show="item.fieldName">name: {{item.fieldName}}</div>
+                            <div data-ng-show="item.size">size on the serve: {{item.size}}</div>
+                            <div data-ng-show="item.value">value: {{item.value}}</div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+          </div>
+          -->
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-md-offset-3 col-md-9">
+            <button type="submit" class="btn btn-info">Registrar</button>
+        </div>
+      </div>
+    </div>
+    <!-- #column-6 -->
+
+  </form>
+</div>

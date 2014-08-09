@@ -1,0 +1,61 @@
+<div class="modal-header">
+  <h3>Datos Personales <strong>{{task.title}}</strong></h3>
+</div>
+<div class="modal-body">
+
+  <div class="profile-block">
+    <div class="panel profile-photo">
+      <img src="assets/demo/avatars/5.jpg" alt="">
+    </div><br>
+    
+  </div>
+  
+  <div class="panel panel-transparent">
+    <div class="panel-body">
+        
+        <div class="row form-group">
+          <label class="col-sm-4 control-label">DNI:</label>
+          <div class="col-sm-8">
+            {{student.dni}}
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <label class="col-sm-4 control-label">Apellido Paterno:</label>
+          <div class="col-sm-8">
+            {{student.fatherName}}
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <label class="col-sm-4 control-label">Apellido Materno:</label>
+          <div class="col-sm-8">
+            {{student.motherName}}
+          </div>
+        </div>
+
+         <div class="row form-group">
+          <label class="col-sm-4 control-label">Nombres:</label>
+          <div class="col-sm-8">
+            {{student.names}}
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <label class="col-sm-4 control-label">Dirección:</label>
+          <div class="col-sm-8">
+            {{student.address}}
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button ng-if="task.id" ng-click="remove()" class="btn btn-sm btn-danger">
+    <span class="glyphicon glyphicon-trash"></span>
+    <span>Remove</span>
+  </button>
+  <button ng-if="!task.id" ng-click="$dismiss()" class="btn btn-sm btn-default" >Cerrar</button>
+  <button ng-if="task.id" ng-click="$dismiss()" class="btn btn-sm btn-link" >Close</button>
+</div>

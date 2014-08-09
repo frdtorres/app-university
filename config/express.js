@@ -16,7 +16,8 @@ var mean = require('meanio'),
   mongoStore = require('connect-mongo')(session),
   helpers = require('view-helpers'),
   flash = require('connect-flash'),
-  config = mean.loadConfig();
+  config = mean.loadConfig(),
+  multipart = require('connect-multiparty');
 
 module.exports = function(app, passport, db) {
 
@@ -100,4 +101,7 @@ module.exports = function(app, passport, db) {
 
   // Connect flash for flash messages
   app.use(flash());
+
+  // required for file upload
+  app.use(multipart());
 };

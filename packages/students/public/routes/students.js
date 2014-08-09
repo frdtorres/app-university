@@ -13,7 +13,7 @@ angular.module('mean.students').config(['$stateProvider',
             url: '/students/create',
             templateUrl: 'students/views/create.html'
         })
-      .state('all students', {
+      .state('students', {
             url: '/students',
             templateUrl: 'students/views/list.html'            
         })
@@ -21,6 +21,52 @@ angular.module('mean.students').config(['$stateProvider',
             url: '/students/edit/:studentId',
             templateUrl: 'students/views/edit.html'
         })
+      // Define project settings form sub-state.
+    .state('students.view', {
+      url: '/view/:studentId',
+      resolve: {
+        $prevState: function($rootScope) {
+          return $rootScope.$prevState;
+        },
+        $prevStateParams: function($rootScope) {
+          return $rootScope.$prevStateParams;
+        }
+      },
+      onEnter: function($state, $stateParams, $modal, $prevState, $prevStateParams) {
+
+        var modal = $modal.open({
+          templateUrl: 'students/views/view.html',
+          controller: 'StudentViewController'
+        });
+        
+        /**
+         * After modal's closure
+         */
+        modal.result.finally(function() {
+
+          // Parse variables.
+          var to = $prevState.name ? $prevState.name : 'students';
+          var toParams = $prevState.name ? $prevStateParams : {};
+
+          // Move to previous state or to project listing.
+          $state.go(to, toParams) ;
+        });
+
+        /**
+         * Bootstrap 3.0 adjusment to modal's behaviors.
+         */
+        modal.opened.finally(function() {
+          // Bootstrap 3.0 adjustment.
+          jQuery('body').addClass('modal-open');
+        });
+        
+        modal.result.finally(function() {
+          // Bootstrap 3.0 adjustment.
+          jQuery('body').removeClass('modal-open');
+        });
+      }
+    })
+      ;
         ;
   }
 ]);

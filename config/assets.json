@@ -15,7 +15,9 @@
         "bower_components/angular-bootstrap/ui-bootstrap.js",
         "bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
         "bower_components/lodash/dist/lodash.js",
-			  "bower_components/restangular/dist/restangular.js"
+        "bower_components/restangular/dist/restangular.js",
+			  "bower_components/file-upload/angular-file-upload.js"
+
       ]
     }
   }
