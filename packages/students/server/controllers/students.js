@@ -127,19 +127,13 @@ exports.show = function(req, res) {
  * List ofStudents
  */
 exports.all = function(req, res) {
-  
-  var schoolId = req.header.school;
-  // var s = mongoose.Types.ObjectId(school);
-  
-  School.load(schoolId, function(err, school) {
-    if (err) return err;
 
-    // console.log(school);
-    
-    Student.find()
+  var schoolId = req.headers.school;
+
+  Student.find()
     .populate('schools')
     .populate('user', 'name username')
-    .where('schools', { $elemMatch: { $in: [school] }})
+    .where('schools', { $elemMatch: { $in: [schoolId] }})
     .sort('-created')
     .exec(function(err, students) {
       console.log(err);
@@ -153,6 +147,5 @@ exports.all = function(req, res) {
       res.json(students);
 
     });
-  });
 
 };
