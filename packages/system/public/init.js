@@ -29,4 +29,21 @@ var modules = [
 modules = modules.concat(packageModules);
 
 // Combined modules
-angular.module('mean', modules);
+angular.module('mean', modules)
+
+  /* Application Start Listener
+  ----------------------------- */
+  .run(function ($rootScope, $state, $stateParams) {
+
+      // Give easy access to states on all modules via rootScope.
+      $rootScope.$state = $rootScope.$prevState = $state;
+      $rootScope.$stateParams = $rootScope.$prevStateParams = $stateParams;
+
+      // Track state changes.
+      $rootScope.$on('$stateChangeSuccess', function (e, to, toParams, from, fromParams) {
+        
+        // Update previous state info.
+        $rootScope.$prevState = to;
+        $rootScope.$prevStateParams = toParams;
+      });
+    });

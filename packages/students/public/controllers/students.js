@@ -87,6 +87,10 @@ angular.module('mean.students')
       $scope.student = {};
       $scope.files = null;
 
+      $scope.package = {
+          name: 'students'
+      };
+
       // Get all schools
       $scope.getSchools = function() {
         Schools.getList().then(function(schools) {
@@ -199,7 +203,7 @@ angular.module('mean.students')
               $scope.student = response.data.doc;
               $scope.uploadResult.push(response.data.result);
 
-              $state.go('all students');
+              $state.go('students');
 
           }, null, function (evt) {
               $scope.progress[index] = parseInt(100.0 * evt.loaded / evt.total);

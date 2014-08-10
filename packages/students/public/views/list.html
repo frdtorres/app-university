@@ -6,7 +6,7 @@
 		</div>
 	</h1>
 	<body ng-app>
-		
+
 		<hr>
 		<div class="panel panel-primary">
 			<div class="panel-heading">
@@ -26,51 +26,51 @@
 
 							Apellido Paterno
 							<a href="" ng-click="orderByValue('-fatherName')">
-								<i class="fa fa-caret-up"></i> 
+								<i class="fa fa-caret-up"></i>
 							</a>
 							<a href="" ng-click="orderByValue('fatherName')">
-								<i class="fa fa-caret-down"></i> 
+								<i class="fa fa-caret-down"></i>
 							</a>
 						</th>
 						<th>
 							Apellido Materno
 							<a href="" ng-click="orderByValue('-motherName')">
-								<i class="fa fa-caret-up"></i> 
+								<i class="fa fa-caret-up"></i>
 							</a>
 							<a href="" ng-click="orderByValue('motherName')">
-								<i class="fa fa-caret-down"></i> 
+								<i class="fa fa-caret-down"></i>
 							</a>
-							
+
 						</th>
 						<th>
 							Nombres
 							<a href="" ng-click="orderByValue('-names')">
-								<i class="fa fa-caret-up"></i> 
+								<i class="fa fa-caret-up"></i>
 							</a>
 							<a href="" ng-click="orderByValue('names')">
-								<i class="fa fa-caret-down"></i> 
+								<i class="fa fa-caret-down"></i>
 							</a>
 						</th>
-						
+
 						<th>
 							Escuela Profesional
 							<a href="" ng-click="orderByValue('-schools[0].name')">
-								<i class="fa fa-caret-up"></i> 
+								<i class="fa fa-caret-up"></i>
 							</a>
 							<a href="" ng-click="orderByValue('schools[0].name')">
-								<i class="fa fa-caret-down"></i> 
+								<i class="fa fa-caret-down"></i>
 							</a>
 					</th>
 
 						<th>Acciones</th>
-					
+
 					</tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="student in students | orderBy:filterSelected |filter:buscar">
 						<td>{{$index+1}}</td>
 						<td>{{student.dni}}</td>
-						<td>{{student.fatherName | uppercase}}</td>  
+						<td>{{student.fatherName | uppercase}}</td>
 						<td>{{student.motherName}}</td>
 						<td>{{student.names}}</td>
 						<td>{{student.schools[0].name}}</td>
@@ -81,10 +81,10 @@
 			      	<button ng-click="remove(student._id)" class="btn btn-danger btn-xs" >
 			    	    <i class="fa fa-trash-o"></i> Delete
 					    </button>
-					    <a href="/#!/students/view/{{student._id}}" class="btn btn-info btn-xs" >
+					    <a href="/#!/students/{{student._id}}" class="btn btn-info btn-xs" >
 								<i class="fa fa-pencil-square-o"></i> Ver
 							</a>
-						</td>	
+						</td>
 					</tr>
 
 				</tbody>
