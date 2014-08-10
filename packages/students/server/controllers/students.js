@@ -19,14 +19,6 @@ exports.upload = function (req, res) {
 
     var data = req.body || {};
 
-    debugger;
-
-    console.log('>>>>>');
-    console.log('__dirname', __dirname);
-    console.log('oldPath', oldPath);
-    console.log('newPath: ', newPath);
-    console.log('filename: ', filename);
-
     fs.rename(oldPath, newPath, function (err) {
         if (err === null) {
 
@@ -38,10 +30,7 @@ exports.upload = function (req, res) {
               filename: filename
             };
 
-            debugger;
             var doc = new Student(data);
-
-            console.log('Renaming file to ', req.files.myFile.name);
 
             doc.save(function (err) {
 

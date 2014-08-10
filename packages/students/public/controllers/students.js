@@ -87,10 +87,6 @@ angular.module('mean.students')
       $scope.student = {};
       $scope.files = null;
 
-      $scope.package = {
-          name: 'students'
-      };
-
       // Get all schools
       $scope.getSchools = function() {
         Schools.getList().then(function(schools) {
@@ -101,24 +97,8 @@ angular.module('mean.students')
 
       // Register student
       $scope.create = function() {
-
-        debugger;
-
-        console.log($scope.files);
-
          if($scope.files){
-
-           var files = $files;
-           debugger;
-
            $scope.start(0);
-
-           //console.log($scope.files);
-
-           // Save estudent
-           // Students.post($scope.student).then(function (student) {
-           //   $state.go('all students');
-           // })
          };
 
       };
@@ -177,32 +157,19 @@ angular.module('mean.students')
       $scope.start = function (index) {
 
           $scope.progress[index] = 0;
-          console.log('starting...');
-          console.log($scope.myModel);
-          console.log($scope.selectedFiles[index]);
 
           $scope.upload[index] = $upload.upload({
               url: 'upload',
               headers: {'myHeaderKey': 'myHeaderVal'},
               data: $scope.student,
-              /*
-              formDataAppender: function(fd, key, val) {
-               if (angular.isArray(val)) {
-                 angular.forEach(val, function(v) {
-                   fd.append(key, v);
-                 });
-               } else {
-                 fd.append(key, val);
-               }
-               },
-               */
               file: $scope.selectedFiles[index],
               fileFormDataName: 'myFile'
           }).then(function (response) {
-              console.log('response', response.data);
+
               $scope.student = response.data.doc;
               $scope.uploadResult.push(response.data.result);
 
+              // Redirec to student list
               $state.go('students');
 
           }, null, function (evt) {
