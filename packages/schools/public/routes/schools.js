@@ -19,9 +19,16 @@ angular.module('mean.schools').config(['$stateProvider',
 		    url: '/schools',
 		    templateUrl: 'schools/views/list.html'
 		})
+		
 		.state('edit schools',{
             url: '/schools/edit/:schoolId',
             templateUrl: 'schools/views/edit.html'
+        })
+
+        .state('school',{
+            url: '/schools/:schoolId',
+            controller: 'ViewSchool',
+            templateUrl: 'schools/views/view.html'
         })
         ;
   }

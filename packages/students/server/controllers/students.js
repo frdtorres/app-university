@@ -5,6 +5,7 @@
  */
 var mongoose = require('mongoose')
   , Student = mongoose.model('Student')
+  , School = mongoose.model('School')
   , fs = require('fs')
   , _ = require('lodash');
 
@@ -126,17 +127,32 @@ exports.show = function(req, res) {
  * List ofStudents
  */
 exports.all = function(req, res) {
- Student.find()
-  .sort('-created')
-  .populate('user', 'name username')
-  .populate('schools', 'name')
-  .exec(function(err, students) {
-    if (err) {
-      return res.json(500, {
-        error: 'Cannot list the students'
-      });
-    }
-    res.json(students);
+  
+  var schoolId = req.header.school;
+  // var s = mongoose.Types.ObjectId(school);
+  
+  School.load(schoolId, function(err, school) {
+    if (err) return err;
 
+    // console.log(school);
+    
+    Student.find()
+    .populate('schools')
+    .populate('user', 'name username')
+    .where('schools', { $elemMatch: { $in: [school] }})
+    .sort('-created')
+    .exec(function(err, students) {
+      console.log(err);
+      if (err) {
+        return res.json(500, {
+          error: 'Cannot list the students'
+        });
+      }
+
+      console.log(students);
+      res.json(students);
+
+    });
   });
+
 };

@@ -81,11 +81,20 @@ angular.module('mean.students')
     '$state',
     'Schools',
     'Students',
-    function ($scope, $http, $timeout, $upload, $state, Schools, Students) {
+    '$stateParams',
+    function ($scope, $http, $timeout, $upload, $state, Schools, Students, $stateParams) {
 
       // Student object
       $scope.student = {};
       $scope.files = null;
+      var studentId = $stateParams.studentId;
+      if (studentId) {
+        //Students.one(studentId).get().then(function (student) {
+          Students.one(studentId).get().then(function (student) {
+           $scope.student = student;
+          });
+
+      };
 
       // Get all schools
       $scope.getSchools = function() {

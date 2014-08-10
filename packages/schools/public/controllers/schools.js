@@ -54,5 +54,18 @@ angular.module('mean.schools')
         $scope.predicate = '-code';
 
     }
-]);
+])
+.controller('ViewSchool', ['Schools','$stateParams','$scope', 'Students', function(Schools, $stateParams, $scope, Students){
+
+    var schoolId = $stateParams.schoolId;
+
+    Schools.one(schoolId).get().then(function (School) {
+        $scope.Schools = School;
+    });
+
+    Students.getList("",{school:  schoolId}).then(function (Student) {
+        $scope.Students = Student;
+    });
+    
+}])
 
