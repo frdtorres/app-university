@@ -15,7 +15,7 @@ angular.module('mean.students')
 
       $scope.find = function() {
           Students.getList().then(function(students) {
-              // Add all categories into the factory StudentsLocal.
+            // Add all categories into the factory StudentsLocal.
             StudentsLocal.set(students);
             $scope.students = StudentsLocal.all();
           });
@@ -32,11 +32,6 @@ angular.module('mean.students')
               // Add all categories into the factory SchoolsLocal.
             $scope.schools =schools;
           });
-      };
-
-      $scope.update = function () {
-          $scope.student.customPUT($scope.student, $scope.student._id);
-          $state.go('all students');
       };
 
       $scope.remove = function(id) {
@@ -87,11 +82,14 @@ angular.module('mean.students')
       // Student object
       $scope.student = {};
       $scope.files = null;
+      
+      // Get param studentId if exist
       var studentId = $stateParams.studentId;
+      
       if (studentId) {
-        //Students.one(studentId).get().then(function (student) {
           Students.one(studentId).get().then(function (student) {
            $scope.student = student;
+           console.log(student);
           });
 
       };
@@ -99,7 +97,7 @@ angular.module('mean.students')
       // Get all schools
       $scope.getSchools = function() {
         Schools.getList().then(function(schools) {
-             // Add all categories into the factorySchoolsLocal.
+           // Add all categories into the factorySchoolsLocal.
            $scope.schools = schools;
          });
       };
@@ -107,9 +105,18 @@ angular.module('mean.students')
       // Register student
       $scope.create = function() {
          if($scope.files){
-           $scope.start(0);
+           $scope.start(0, 'upload');
          };
+      };
 
+      $scope.update = function () {
+          if($scope.files){
+            
+            $scope.start(0, 'upload/' + $scope.student._id);
+          }else{
+            $scope.student.customPUT($scope.student, $scope.student._id);
+            $state.go('students');
+          };
       };
 
       $scope.uploadRightAway = false;
@@ -163,12 +170,12 @@ angular.module('mean.students')
           }
       }
 
-      $scope.start = function (index) {
+      $scope.start = function (index, url) {
 
           $scope.progress[index] = 0;
 
           $scope.upload[index] = $upload.upload({
-              url: 'upload',
+              url: url,
               headers: {'myHeaderKey': 'myHeaderVal'},
               data: $scope.student,
               file: $scope.selectedFiles[index],

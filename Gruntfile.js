@@ -51,6 +51,7 @@ module.exports = function(grunt) {
     uglify: {
       core: {
         options: {
+          beautify: true,
           mangle: false
         },
         files: '<%= assets.core.js %>'
