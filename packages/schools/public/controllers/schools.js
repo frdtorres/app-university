@@ -66,6 +66,14 @@ angular.module('mean.schools')
     Students.getList("",{school:  schoolId}).then(function (Student) {
         $scope.Students = Student;
     });
-    
+
+      // Filters
+
+    $scope.orderByValue = function (val) {
+        $scope.filterSelected = val;
+    }
+
+    $scope.predicate = '-code';
+
 }])
 
