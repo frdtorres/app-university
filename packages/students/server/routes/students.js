@@ -13,7 +13,7 @@ var hasAuthorization = function(req, res, next) {
 // The Package is past automatically as first parameter
 module.exports = function(Student, app, auth, database) {
 
-    app.post('/upload', students.upload);
+    app.post('/upload/:studentId?', students.upload);
 
     app.route('/students')
         // Listar estudiantes

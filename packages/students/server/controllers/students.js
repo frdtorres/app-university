@@ -13,12 +13,14 @@ var mongoose = require('mongoose')
 // CREATE
 exports.upload = function (req, res) {
 
+    var student = req.student;
+    var data = req.body;
+
     var oldPath = req.files.myFile.path;
     var separator = '/';
     var filename = oldPath.split(separator)[oldPath.split(separator).length-1];
     var newPath = [__dirname, '..' , '..', 'public', 'assets', 'img', 'uploads', '', filename].join(separator);
 
-    var data = req.body || {};
 
     fs.rename(oldPath, newPath, function (err) {
         if (err === null) {
@@ -31,17 +33,46 @@ exports.upload = function (req, res) {
               filename: filename
             };
 
-            var doc = new Student(data);
+            debugger;
 
-            doc.save(function (err) {
+            if(!student){
+              // Create student
+              var doc = new Student(data);
 
-                var retObj = {
-                    meta: {"action": "upload", 'timestamp': new Date(), filename: __filename},
-                    doc: doc,
-                    err: err
-                };
-                return res.send(retObj);
-            });
+              doc.save(function (err) {
+
+                  var retObj = {
+                      meta: {"action": "upload", 'timestamp': new Date(), filename: __filename},
+                      doc: doc,
+                      err: err
+                  };
+                  return res.send(retObj);
+              });
+
+            } else {
+
+              var clearData = {
+                photo: data.photo,
+                names: data.names,
+                fatherName: data.fatherName,
+                motherName: data.motherName,
+                address: data.address,
+                telephone: data.telephone
+              };
+              
+              student = _.extend(student, clearData);
+
+              student.save(function(err) {
+                if (err) {
+                  return res.json(500, {
+                    error: 'Cannot update the student'
+                  });
+                }
+                res.json(student);
+
+              });
+
+            };
         }
     });
 }
@@ -130,22 +161,41 @@ exports.all = function(req, res) {
 
   var schoolId = req.headers.school;
 
-  Student.find()
-    .populate('schools')
-    .populate('user', 'name username')
-    .where('schools', { $elemMatch: { $in: [schoolId] }})
-    .sort('-created')
-    .exec(function(err, students) {
-      console.log(err);
-      if (err) {
-        return res.json(500, {
-          error: 'Cannot list the students'
-        });
-      }
+  if(schoolId) {
 
-      console.log(students);
-      res.json(students);
+    Student.find()
+      .populate('schools', 'name')
+      .populate('user', 'name username')
+      .where('schools', { $elemMatch: { $in: [schoolId] }})
+      .sort('-created')
+      .exec(function(err, students) {
 
-    });
+        if (err) {
+          return res.json(500, {
+            error: 'Cannot list the students'
+          });
+        }
+
+        res.json(students);
+      });
+
+  }else{
+
+    Student.find()
+      .populate('schools', 'name')
+      .populate('user', 'name username')
+      .sort('-created')
+      .exec(function(err, students) {
+
+        if (err) {
+          return res.json(500, {
+            error: 'Cannot list the students'
+          });
+        }
+
+        res.json(students);
+      });
+  }
+
 
 };
